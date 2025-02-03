@@ -9,9 +9,8 @@ const tabloDiv = document.querySelector(".tablo-image")
 const bgImage = document.querySelector("#tabloKep")
 const REL_IMG_PATH = "./images/"
 
-
 bgImage.src = REL_IMG_PATH + "tablo.jpg"
-
+bgImage.ondragstart = function() { return false; };
 
 let imgsLength = 0;
 
@@ -27,14 +26,48 @@ async function fillSelectors() {
         })
 } 
 
+// function detectLeftButton(evt) {
+//     evt = evt || window.event;
+//     if ("buttons" in evt) {
+//         return evt.buttons == 1;
+//     }
+//     var button = evt.which || evt.button;
+//     return button == 1;
+// }
+
+
+
+
+let divsSoFar = 0
+
+const moveDiv = (e, target, contentStart)=>{
+    // while(){
+    //     console.log("gigaba");
+
+    // }
+        let clickedDivId = target.id
+        // e.target.style.top = e.clientY + "px"
+        // e.target.style.left = e.clientX-70 + "px"
+        target.innerHTML = contentStart + "top: " + target.style.top + "<br>left: " + target.style.left
+
+        // console.log(e.clientX);
+    
+}
 
 const main = async ()=>{
     await fillSelectors()
     createDivBtn.addEventListener("click", ()=>{
         let diakDiv = document.createElement("div")
+        divsSoFar++
         diakDiv.className = "diakDiv"
+        diakDiv.id = "d" + divsSoFar
+        let contentStart = `${nameSelector.value}<br>${imageSelector.value}.jpg<br>`
+        diakDiv.style.top = 0
+        diakDiv.style.left = 0
+        diakDiv.innerHTML = contentStart + "top: " + diakDiv.style.top + "<br>left: " + diakDiv.style.left
+
         tabloDiv.appendChild(diakDiv)
-        // createDivBtn.enabled = false
+        tabloDiv.addEventListener("mousedown", (e) => {moveDiv(e, diakDiv, contentStart)})
     })
 }
 

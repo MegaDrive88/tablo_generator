@@ -1,7 +1,11 @@
 /*kell scss?*/
 body{
     margin: 5px;
+    -webkit-user-select: none; /* Safari */
+    -ms-user-select: none; /* IE 10 and IE 11 */
+    user-select: none; /* Standard syntax */
 }
+
 .content{
     width: 90%;
     margin-left: auto;
@@ -23,4 +27,5 @@ body{
     height: 100px;
     width: 100px;
     background-color: rgba(255, 0, 0, .5);
+    color: white;
 }
