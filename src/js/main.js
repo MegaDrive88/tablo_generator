@@ -41,14 +41,10 @@ async function fillSelectors() {
 let divsSoFar = 0
 
 const moveDiv = (e, target, contentStart)=>{
-    // while(){
-    //     console.log("gigaba");
-
-    // }
         let clickedDivId = target.id
-        // e.target.style.top = e.clientY + "px"
-        // e.target.style.left = e.clientX-70 + "px"
-        target.innerHTML = contentStart + "top: " + target.style.top + "<br>left: " + target.style.left
+        target.style.top = e.clientY - 5 + "px"
+        target.style.left = e.clientX - 5 - window.screen.width*.05 + "px"
+        target.innerHTML = contentStart + "top: " + target.style.top + "<br>left: " + target.style.left +"<br><button>\🔒</button>"
 
         // console.log(e.clientX);
     
@@ -65,9 +61,8 @@ const main = async ()=>{
         diakDiv.style.top = 0
         diakDiv.style.left = 0
         diakDiv.innerHTML = contentStart + "top: " + diakDiv.style.top + "<br>left: " + diakDiv.style.left
-
         tabloDiv.appendChild(diakDiv)
-        tabloDiv.addEventListener("mousedown", (e) => {moveDiv(e, diakDiv, contentStart)})
+        tabloDiv.addEventListener("mousedown", (e) => {moveDiv(e, diakDiv, contentStart)}) // szar otlet...
     })
 }
 
