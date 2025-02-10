@@ -5,12 +5,19 @@ const nameSelector = document.querySelector("#nameSelector")
 const imageSelector = document.querySelector("#imageSelector")
 
 const createDivBtn = document.querySelector("#uj")
-const tabloDiv = document.querySelector(".tablo-image")
-const bgImage = document.querySelector("#tabloKep")
 const REL_IMG_PATH = "./images/"
 
-bgImage.src = REL_IMG_PATH + "tablo.jpg"
-bgImage.ondragstart = function() { return false; };
+let currentID = "---"
+
+let stage = new Konva.Stage({
+    container: 'container',
+    width: 1000,
+    height: 1000,
+});
+
+let layer = new Konva.Layer();
+stage.add(layer)
+
 
 let imgsLength = 0;
 
@@ -23,47 +30,62 @@ async function fillSelectors() {
                 let twoLongNumber = imgsLength < 10 ? '0'+imgsLength : imgsLength
                 imageSelector.innerHTML += `<option value="${twoLongNumber}">${twoLongNumber}</option>`;
             })
+            document.querySelector("#diakPreview").src = REL_IMG_PATH + "diakok/01.jpg"
         })
-} 
 
-// function detectLeftButton(evt) {
-//     evt = evt || window.event;
-//     if ("buttons" in evt) {
-//         return evt.buttons == 1;
-//     }
-//     var button = evt.which || evt.button;
-//     return button == 1;
-// }
+}
 
-
-
-
-let divsSoFar = 0
-
-const moveDiv = (e, target, contentStart)=>{
-        let clickedDivId = target.id
-        target.style.top = e.clientY - 5 + "px"
-        target.style.left = e.clientX - 5 - window.screen.width*.05 + "px"
-        target.innerHTML = contentStart + "top: " + target.style.top + "<br>left: " + target.style.left +"<br><button>\🔒</button>"
-
-        // console.log(e.clientX);
+imageSelector.addEventListener("change", ()=>{
+    document.querySelector("#diakPreview").src = REL_IMG_PATH + "diakok/" + imageSelector.value + ".jpg"
     
-}
+})
 
-const main = async ()=>{
-    await fillSelectors()
-    createDivBtn.addEventListener("click", ()=>{
-        let diakDiv = document.createElement("div")
-        divsSoFar++
-        diakDiv.className = "diakDiv"
-        diakDiv.id = "d" + divsSoFar
-        let contentStart = `${nameSelector.value}<br>${imageSelector.value}.jpg<br>`
-        diakDiv.style.top = 0
-        diakDiv.style.left = 0
-        diakDiv.innerHTML = contentStart + "top: " + diakDiv.style.top + "<br>left: " + diakDiv.style.left
-        tabloDiv.appendChild(diakDiv)
-        tabloDiv.addEventListener("mousedown", (e) => {moveDiv(e, diakDiv, contentStart)}) // szar otlet...
+
+createDivBtn.addEventListener("click", ()=>{
+    let name = nameSelector.value
+    let pic = imageSelector.value
+    let picturePath = REL_IMG_PATH + "diakok/" + pic + ".jpg"
+    currentID = name.replace(" ", "-") + "_" + pic
+    let c = stage.find(`#${currentID}`);    
+    if(c.length != 0) {
+        console.log("Ehhez a név-kép párhoz már tartozik doboz")
+        return
+    }
+    let box = new Konva.Group({
+        x: 0, 
+        y: 0, 
+        width: 100,
+        height: 100,
+        draggable: true,
+        id: currentID
+    }); 
+    let rect = new Konva.Rect({
+        width: 100,
+        height: 100,
+        fill: '#FF000080',
     })
+    box.add(rect)
+    box.add(new Konva.Text({
+        text: `${name}\n${pic}\n`, // x és y ? 
+        fill: '#FFFFFF',
+        padding: 5
+    }))
+    let tr = new Konva.Transformer({
+        node: rect,
+        resizeEnabled: true,
+        rotateEnabled: false
+    });
+    layer.add(box);
+    layer.add(tr)
+})
+
+
+
+
+
+const main = ()=>{
+    fillSelectors()
 }
 
+// 🔒
 window.onload = main

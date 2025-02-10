@@ -3,21 +3,26 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://unpkg.com/konva@9.3.18/konva.min.js"></script>
     <title>Coords</title>
   </head>
   <body>
     <div class="content">
-      <div class="tablo-image">
-        <img id="tabloKep">
-      </div>
+      <div id="container"></div>
       <div class="register">
-        Név:
-        <select name="nameSelector" id="nameSelector" class="form-select"></select><br>
+        
         Kép:
         <select name="imageSelector" id="imageSelector" class="form-select"></select>
         <br>
-        <!--shapeSelector?-->
+        <img src="" alt="" id="diakPreview">
+        <br>
+        <br>
+        Hozzá tartozó név:
+        <select name="nameSelector" id="nameSelector" class="form-select"></select><br>
         <button id="uj" class="btn btn-primary">Új</button>
+        <button id="elozo" class="btn btn-primary">Előző</button>
+        <button id="ment" class="btn btn-primary">Ment</button>
+        <button id="torol" class="btn btn-danger">Töröl</button>
         <div id="result">---</div>
       </div>
     </div>

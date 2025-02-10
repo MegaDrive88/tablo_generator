@@ -1,6 +1,5 @@
-/*kell scss?*/
 body{
-    margin: 5px;
+    margin: 10px;
     -webkit-user-select: none; /* Safari */
     -ms-user-select: none; /* IE 10 and IE 11 */
     user-select: none; /* Standard syntax */
@@ -11,22 +10,18 @@ body{
     margin-left: auto;
     margin-right: auto;
 }
-.tablo-image{
-    float: left;
-    position: relative;
-}
 .register{
     float: left;
-    width: 500px;
+    width: 400px;
     margin-left: 10px;
     z-index: 1;
 }
-.diakDiv{
-    position: absolute;
-    z-index: 1;
-    height: 100px;
-    width: 100px;
-    background-color: rgba(255, 0, 0, .5);
-    color: white;
-    font-size: small;
+#container{
+    background-image: url("./images/tablo.jpg");
+    background-size: contain;
+    background-repeat: no-repeat;
+    float: left;
+}
+#diakPreview{
+    height: 300px;
 }
