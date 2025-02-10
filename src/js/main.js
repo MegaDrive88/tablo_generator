@@ -53,7 +53,7 @@ createDivBtn.addEventListener("click", ()=>{
     let box = new Konva.Group({
         x: 0, 
         y: 0, 
-        width: 100, // egyforma meret
+        width: 100, // egyforma meret? rotate?
         height: 100,
         draggable: true,
         id: currentID
@@ -61,7 +61,7 @@ createDivBtn.addEventListener("click", ()=>{
     let rect = new Konva.Rect({
         width: 100,
         height: 100,
-        fill: '#FF000080',
+        fill: '#FF000080', // different for selected?
         id: currentID + "_RECT"
     })
     box.add(rect)
@@ -85,7 +85,9 @@ document.querySelector("#ment").addEventListener("click", ()=>{
     let last = stage.find(`#${currentID}`)[0]
     let rect = stage.find(`#${currentID}_RECT`)[0]
     // rect draggable
-    result.innerHTML = currentID + ` | x = ${last.x()} | y = ${last.y()} | h = ${(rect.scaleY() * 100.0).toFixed(2)} | w = ${(rect.scaleX() * 100.0).toFixed(2)} \🔒<br>` + ihtml // tombbe elmenteni?
+    result.innerHTML = currentID + ` | x = ${last.x()} | y = ${last.y()} | h = ${(rect.scaleY() * 100.0).toFixed(2)} | w = ${(rect.scaleX() * 100.0).toFixed(2)} \🔒<br>` + ihtml 
+    // tortek?
+    // tombbe elmenteni?
 })
 
 const main = ()=>{
