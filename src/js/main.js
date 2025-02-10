@@ -3,6 +3,7 @@ import '../css/style.css';
 
 const nameSelector = document.querySelector("#nameSelector")
 const imageSelector = document.querySelector("#imageSelector")
+const result = document.querySelector("#result")
 
 const createDivBtn = document.querySelector("#uj")
 const REL_IMG_PATH = "./images/"
@@ -32,14 +33,12 @@ async function fillSelectors() {
             })
             document.querySelector("#diakPreview").src = REL_IMG_PATH + "diakok/01.jpg"
         })
-
 }
 
 imageSelector.addEventListener("change", ()=>{
     document.querySelector("#diakPreview").src = REL_IMG_PATH + "diakok/" + imageSelector.value + ".jpg"
     
 })
-
 
 createDivBtn.addEventListener("click", ()=>{
     let name = nameSelector.value
@@ -54,7 +53,7 @@ createDivBtn.addEventListener("click", ()=>{
     let box = new Konva.Group({
         x: 0, 
         y: 0, 
-        width: 100,
+        width: 100, // egyforma meret
         height: 100,
         draggable: true,
         id: currentID
@@ -63,6 +62,7 @@ createDivBtn.addEventListener("click", ()=>{
         width: 100,
         height: 100,
         fill: '#FF000080',
+        id: currentID + "_RECT"
     })
     box.add(rect)
     box.add(new Konva.Text({
@@ -73,19 +73,23 @@ createDivBtn.addEventListener("click", ()=>{
     let tr = new Konva.Transformer({
         node: rect,
         resizeEnabled: true,
-        rotateEnabled: false
+        rotateEnabled: false,
     });
     layer.add(box);
     layer.add(tr)
 })
 
-
-
-
+document.querySelector("#ment").addEventListener("click", ()=>{
+    if (currentID == "---") return
+    let ihtml = result.innerHTML
+    let last = stage.find(`#${currentID}`)[0]
+    let rect = stage.find(`#${currentID}_RECT`)[0]
+    // rect draggable
+    result.innerHTML = currentID + ` | x = ${last.x()} | y = ${last.y()} | h = ${(rect.scaleY() * 100.0).toFixed(2)} | w = ${(rect.scaleX() * 100.0).toFixed(2)} \🔒<br>` + ihtml // tombbe elmenteni?
+})
 
 const main = ()=>{
     fillSelectors()
 }
 
-// 🔒
 window.onload = main
